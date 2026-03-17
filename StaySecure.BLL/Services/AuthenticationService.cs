@@ -123,11 +123,12 @@ namespace StaySecure.BLL.Services
                     };
                 }
                 await _userManager.AddToRoleAsync(user, "Student");
+                user.UserName = user.Translations.FirstOrDefault(t => t.Language == "en").FullName;
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 token = Uri.EscapeDataString(token);
                var emailUrl = $"https://localhost:7254/api/auth/Account/ConfirmEmail?token={token}&userId={user.Id}";
-              await _emailSender.SendEmailAsync(user.Email, "Welcome", $"<h1>welcome {user.UserName}</h1>" +
-                    $"<a href='{emailUrl}'> confirm email </a>");
+              await _emailSender.SendEmailAsync(user.Email, "Welcome To StaySecure", $"<h1>Welcome {user.UserName}</h1>" +" \n Please Confirm Your Email"+
+                    $"<a href='{emailUrl}'> Confirm Email </a>");
 
                 return new RegisterResponse()
                 {

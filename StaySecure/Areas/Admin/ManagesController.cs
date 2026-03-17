@@ -23,6 +23,12 @@ namespace StaySecure.PL.Areas.Admin
             var result = await _ManageUserService.GetUsersAsync();
             return Ok(result);
         }
+        [HttpGet("userDetails/{userId}")]
+        public async Task<IActionResult> GetUserDetails([FromRoute] string userId)
+        {
+            var result = await _ManageUserService.GetUserDetailsAsync(userId);
+            return Ok(result);
+        }
 
         [HttpPatch("block/{userId}")]
         public async Task<IActionResult> BlockUser([FromRoute] string userId)

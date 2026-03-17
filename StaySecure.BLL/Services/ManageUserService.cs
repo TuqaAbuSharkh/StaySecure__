@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Mapster;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StaySecure.BLL.Services.IServices;
 using StaySecure.DAL.DTOs.Request;
 using StaySecure.DAL.DTOs.Response;
+using StaySecure.DAL.Migrations;
 using StaySecure.DAL.Models;
-using Mapster;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,9 +34,14 @@ namespace StaySecure.BLL.Services
             return result;
         }
 
-        public Task<UserDetailsResponse> GetUserDetailsAsync()
+        public async Task<UserDetailsResponse> GetUserDetailsAsync(string Id)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByIdAsync(Id);
+            var result = user.Adapt<UserDetailsResponse>();
+            var roles = await _userManager.GetRolesAsync(user);
+            result.Roles = roles.ToList();
+            
+            return result;
         }
 
         public async Task<BaseRespose> BlockedUserAsync(string userId)

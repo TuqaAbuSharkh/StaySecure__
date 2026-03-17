@@ -16,14 +16,13 @@ namespace StaySecure.DAL.Models
 
     public class ApplicationUser :IdentityUser
     {
+
+       public List<UserTranslations> Translations { get; set; }
         public int? Age { get; set; }
         public int TotalScore { get; set; } = 0;
 
         public GenderEnum? Gender { get; set; } = (GenderEnum?)1;
 
-
-        public string? City { get; set; }
-        public string? Street { get; set; }
 
         public string? CodeResetPassword { get; set; }
         public DateTime? PasswordResetCodeExpiry { get; set; }

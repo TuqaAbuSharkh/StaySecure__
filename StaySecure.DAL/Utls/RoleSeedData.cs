@@ -19,8 +19,8 @@ namespace StaySecure.DAL.Utls
 
         public async Task DataSeed()
         {
-            string[] roles = [ "Admin", "Student"];
-            if (!await _roleManager.Roles.AnyAsync())
+            string[] roles = ["Admin", "Student"];
+            if (!(await _roleManager.Roles.AnyAsync()))
             {
 
                 foreach (var role in roles)
